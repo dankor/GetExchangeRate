@@ -65,8 +65,8 @@ def get_rate(Country,CurrencyFrom,CurrencyTo,Date):
 		if rate.find('"1 EUR = ') == -1:			
 			rate = get_rate(Country,CurrencyFrom,CurrencyTo,(datetime.strptime(Date, '%Y-%M-%d') + timedelta(days=-1)).strftime("%Y-%M-%d"))
 		else:
-			rate = rate[rate.find('"1 EUR = ')+9:rate.find(' ' + CurrencyTo +'"}]}]')]
-	
+			rate = rate[rate.find('"1 EUR = ')+9:]
+			rate = rate[:rate.find(' ' + CurrencyTo)]
 	return(rate)
 
 
