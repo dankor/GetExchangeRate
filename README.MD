@@ -32,6 +32,7 @@ Where:
 * AZ
 * RU
 * GE
+* UZ
 
 #### Input currency code
 
@@ -43,6 +44,7 @@ Where:
 * EUR
 * UAH
 * BYN
+* UZS
 
 #### Output currency code
 
