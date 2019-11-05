@@ -69,10 +69,8 @@ def get_rate(Country,CurrencyFrom,CurrencyTo,Date):
 			rate = rate[rate.find('"1 EUR = ')+9:]
 			rate = rate[:rate.find(' ' + CurrencyTo)]
 
-	if Country == 'UZ' and CurrencyFrom == 'UZS':
-		headers_get = headers.copy()
-		headers_get.update({'BX-ACTION-TYPE': 'get_dynamic', 'BX-CACHE-MODE': 'HTMLCACHE'})
-		r = requests.get('https://nbu.uz/exchange-rates/?bxrand=int(datetime.now().timestamp())',headers=headers_get)
+	if Country == 'UZ' and CurrencyFrom == 'UZS':		
+		r = requests.get('https://nbu.uz/exchange-rates/?bxrand=' + str(int(datetime.now().timestamp())),headers=headers)
 		headers.update({'Cookie':'PHPSESSID=' + str(r.cookies.get_dict()['PHPSESSID'])})
 		headers.update({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'})
 		headers.update({'X-Requested-With': 'XMLHttpRequest'})
