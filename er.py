@@ -31,7 +31,7 @@ def get_rate(Country,CurrencyFrom,CurrencyTo,Date):
 			rate = r.text[r.text.find('"mid":')+6:r.text.find('}]}')]		
 
 	if Country == 'GE' and CurrencyFrom == 'GEL':
-		r = requests.post('https://www.nbg.gov.ge/index.php?m=582&lng=eng', data={'item': 'ALL', 'date_start': Date, 'date_end': Date, 'x':'42', 'y':'12', 'action':'search'},headers=headers)
+		r = requests.post('https://www.nbg.gov.ge/index.php?m=582&lng=eng', data={'item': 'ALL', 'date_start': Date, 'date_end': Date, 'x':'31', 'y':'7', 'action':'search'},headers=headers, verify=False)
 		rate = r.text[r.text.find(CurrencyTo)+3:]
 		rate = rate[rate.find(CurrencyTo):]
 		rate = rate[rate.find('">')+2:]
