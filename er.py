@@ -1,13 +1,13 @@
 import requests, sys, os
 from datetime import datetime,timedelta
 
-# Supress warnings
-requests.packages.urllib3.disable_warnings() 
-
-#Fake headers
-headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36','Connection': 'keep-alive'}
-
 def get_rate(Country,CurrencyFrom,CurrencyTo,Date):
+
+	# Supress warnings
+	requests.packages.urllib3.disable_warnings() 
+
+	#Fake headers
+	headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36','Connection': 'keep-alive'}
 	
 	if Country == 'UA' and CurrencyFrom == 'UAH':
 		r = requests.get("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange", params={'valcode': CurrencyTo, 'date': Date.replace('-', '')},headers=headers)
@@ -71,6 +71,7 @@ def get_rate(Country,CurrencyFrom,CurrencyTo,Date):
 
 	if Country == 'UZ' and CurrencyFrom == 'UZS':		
 		r = requests.get('https://nbu.uz/exchange-rates/?bxrand=' + str(int(datetime.now().timestamp())),headers=headers)
+		print(r.cookies)
 		headers.update({'Cookie':'PHPSESSID=' + str(r.cookies.get_dict()['PHPSESSID'])})
 		headers.update({'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'})
 		headers.update({'X-Requested-With': 'XMLHttpRequest'})
@@ -83,7 +84,5 @@ def get_rate(Country,CurrencyFrom,CurrencyTo,Date):
 
 	return(rate)
 
-
-print(get_rate(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]))
-
-
+if len(sys.argv) == 5:
+	print(get_rate(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4]))
